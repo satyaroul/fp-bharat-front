@@ -1,0 +1,167 @@
+<div class="sale">
+  <div class="row" style="margin-top: 20px; font-size: 12px !important">
+    <div class="col-12">
+      <card>
+        <div class="row">
+          <div class="col-4">
+            <label for="inputState">Select Bill Prefix</label>
+            <select
+              id="inputState"
+              class="form-control"
+              [(ngModel)]="bill_id_prefix"
+              (ngModelChange)="selectedBillPrefix()"
+            >
+              <option selected></option>
+              <option>BR</option>
+              <option>BSNL</option>
+              <option>SP</option>
+            </select>
+          </div>
+          <div class="col-3">
+            <label for="billno">Bill Number</label>
+            <h5>{{ billnumber }}</h5>
+          </div>
+          <div class="col-4">
+            <label for="date">Date</label>
+            <input
+              type="text"
+              class="form-control"
+              #dp="bsDatepicker"
+              bsDatepicker
+              (bsValueChange)="getValue($event)"
+              [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY' , containerClass: 'theme-dark-blue'}"
+              [bsValue]="bsValue"
+            />
+          </div>
+        </div>
+      </card>
+    </div>
+  </div>
+  <div class="row" style="margin-top: 20px">
+    <div class="col-4">
+      <card>
+        <button
+          class="btn btn-sm btn-primary float-right"
+          data-toggle="modal"
+          data-target="#account"
+        >
+          Add Account
+        </button>
+        <modal [datamodal]="modalAccount">
+          <span header>Add Account</span>
+          <add-account body></add-account>
+        </modal>
+        <h5>Account Details</h5>
+        <sale-account></sale-account>
+      </card>
+    </div>
+    <div class="col-8">
+      <card>
+        <button
+          class="btn btn-sm btn-primary float-right"
+          data-toggle="modal"
+          data-target="#product"
+        >
+          Add Product
+        </button>
+        <modal [datamodal]="modalProduct">
+          <span header>Add Product</span>
+          <add-item body></add-item>
+        </modal>
+        <h5>Items Details</h5>
+        <sale-item></sale-item>
+      </card>
+    </div>
+  </div>
+  <div class="row" style="margin-top: 20px">
+    <div class="col-12">
+      <card>
+        <action-table [col]="item_col_name">
+          <tr *ngFor="let val of table_data; let i = index" row>
+            <td>{{ i + 1 }}</td>
+            <td>{{ val.hsn }}</td>
+            <td>{{ val.item_name }}</td>
+            <td>{{ val.uom }}</td>
+            <td>{{ val.pack }}</td>
+            <td>{{ val.qty }}</td>
+            <td>{{ val.free }}</td>
+            <td>
+              <span *ngIf="val.s_rate_per_p != null">&#x20b9;</span
+              >{{ val.s_rate_per_p }}
+            </td>
+            <td><span *ngIf="val.mrp">&#x20b9;</span>{{ val.mrp }}</td>
+            <td>
+              {{ val.discount_rate }}
+              <span *ngIf="val.discount_rate">%</span>
+            </td>
+            <td>
+              <span *ngIf="val.discount">&#x20b9;</span>{{ val.discount }}
+            </td>
+            <td>{{ val.gst }} %</td>
+            <td scope="row" *ngIf="val.net_amount != null">
+              <span>&#x20b9;</span>{{ val.net_amount }}
+            </td>
+            <td scope="row" class="action_btn" style="text-align: center">
+              <button
+                class="btn btn-sm btn-success"
+                style="margin-right: 10px"
+                (click)="edit(i)"
+              >
+                Edit
+              </button>
+              <button class="btn btn-sm btn-danger" (click)="delete(i)">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </action-table>
+      </card>
+    </div>
+  </div>
+  <div class="row" style="margin-top: 20px; margin-bottom: 10px">
+    <div class="col-12">
+      <card>
+        <no-action-table [col]="summary_col_name">
+          <tr row>
+            <td>
+              <span *ngIf="summary.basic_amt">&#x20b9;</span
+              >{{ summary.basic_amt }}
+            </td>
+            <td>
+              <span *ngIf="summary.discount_amt">&#x20b9;</span
+              >{{ summary.discount_amt }}
+            </td>
+            <td>
+              <span *ngIf="summary.taxable_amt">&#x20b9;</span
+              >{{ summary.taxable_amt }}
+            </td>
+            <td>
+              <span *ngIf="summary.cgst">&#x20b9;</span>{{ summary.cgst }}
+            </td>
+            <td>
+              <span *ngIf="summary.sgst">&#x20b9;</span>{{ summary.sgst }}
+            </td>
+            <td>
+              <span *ngIf="summary.net_amt">&#x20b9;</span>{{ summary.net_amt }}
+            </td>
+          </tr>
+        </no-action-table>
+        <div class="" style="text-align: center">
+          <button
+            class="btn btn-sm btn-success"
+            style="margin-right: 10px"
+            (click)="save()"
+          >
+            Save
+          </button>
+          <button class="btn btn-sm btn-info" style="margin-right: 10px" (click)="save_print()">
+            Save & Print
+          </button>
+          <button class="btn btn-sm btn-danger" style="margin-right: 10px">
+            Cancel
+          </button>
+        </div>
+      </card>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,71 @@
+<form>
+  <div> 
+  </div>
+  <div class="form-group">
+    <label for="ac_name">Account Name</label>
+    <input
+      #input
+      type="text"
+      class="form-control"
+      data-toggle="dropdown"
+      [(ngModel)]="purchase_account.account_name"
+      id="account_name"
+      name="account_name"
+      data-toggle="modal"
+      data-target="#purchase"
+      required
+      placeholder="Account Name"
+    />
+  </div>
+  <div class="form-group">
+    <label for="bill_number">Bill Number</label>
+    <input
+      type="text"
+      class="form-control"
+      [(ngModel)]="purchase_account.purchase_bill_id"
+      id="purchase_bill_id"
+      name="purchase_bill_id"
+      required
+      placeholder="Purchase Bill no."
+    />
+  </div>
+  <div class="form-group">
+    <label for="bill_date">Bill Date</label>
+    <input
+      type="text"
+      class="form-control"
+      #dp="bsDatepicker"
+      bsDatepicker
+      (bsValueChange)="getBillDateValue($event)"
+      [bsConfig]="{
+        dateInputFormat: 'DD-MM-YYYY',
+        containerClass: 'theme-dark-blue'
+      }"
+      [bsValue]="bsValue"
+    />
+  </div>
+  <div class="form-group">
+    <label for="date">Date</label>
+    <input
+      type="text"
+      class="form-control"
+      #dp="bsDatepicker"
+      bsDatepicker
+      (bsValueChange)="getDateValue($event)"
+      [bsConfig]="{
+        dateInputFormat: 'DD-MM-YYYY',
+        containerClass: 'theme-dark-blue'
+      }"
+      [bsValue]="bsValue"
+    />
+  </div>
+  <div class="form-group">
+    <!-- <label for="inputAddress">Address : {{ accountData.ac_address }}</label>
+    <br />
+    <label for="inputGstn">GSTN : {{ accountData.ac_gstn }}</label> <br />
+
+    <label for="inputBeat">BEAT : {{ accountData.ac_beat }}</label> <br />
+
+    <label for="inputMobile">Mobile : {{ accountData.ac_mobile }}</label> -->
+  </div>
+</form>

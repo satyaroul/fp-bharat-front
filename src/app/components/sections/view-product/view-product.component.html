@@ -1,0 +1,50 @@
+<div class="container view-product">
+    <div class="row">
+        <div class="col-md-12" style="margin-top: 30px;">  
+            <card>
+                <div class="row">
+                    <div class="col-4">
+                        <p>Filter by name</p>
+                    </div>
+                    <div class="col-4">
+                        <p>Filter by MFG Group</p>
+                    </div>
+                    <div class="col-4">
+                        <p>FIlter by HSN Code</p>
+                    </div>
+                </div>
+            </card>       
+            <card>
+                <div>
+                  <action-table [col]="view_item_cols">
+                    <tr *ngFor="let val of products; let i = index" row>
+                      <td>{{ val.product_name }}</td>
+                      <td>{{ val.hsn_code }}</td>
+                      <td>{{ val.mfg_group_code }}</td>
+                      <td>{{ val.uom }}</td>
+                      <td>{{ val.packing_type }}</td>
+                      <td>{{ val.unit_per_package }}</td>
+                      <td>{{ val.p_rate_per_c }}</td>
+                      <td>{{ val.s_rate_per_c }}</td>
+                      <td>{{ val.gst }}</td>
+                      <td>{{ val.mrp }}</td>
+                      <td>{{ val.discount }}</td>
+                      <td class="action_btn" style="text-align: center">
+                        <button
+                          class="btn btn-sm btn-info"
+                          style="margin-right: 10px"
+                          (click)="edit(i)"
+                        >
+                          Edit
+                        </button>
+                        <button class="btn btn-sm btn-danger" (click)="delete(i)">
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  </action-table>
+                </div>
+              </card>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,231 @@
+<div class="purchase_item" style="margin-top: 20px;">
+  <div class="row">
+    <div class="col-12">
+      <action-table [col]="purchase_item_col_name">
+        <tr *ngFor="let val of purchase_items; let i = index" row>
+          <td>
+            {{ val.product_name }}
+          </td>
+          <td>{{ val.uom }}</td>
+          <td>
+            <div *ngIf="!val.isEdit">
+              {{ val.package_qty }}
+            </div>
+            <div *ngIf="val.isEdit">
+              <input
+                type="number"
+                class="form-control"
+                (ngModelChange)="priceCalc($event , i)"
+                [(ngModel)]="val.package_qty"
+                id="packing_qty"
+                name="packing_qty"
+                required
+                placeholder="Qunatity"
+              />
+            </div>
+          </td>
+          <td>
+            <div *ngIf="!val.isEdit">
+              {{ val.loose_unit }}
+            </div>
+            <div *ngIf="val.isEdit">
+              <input
+                type="number"
+                class="form-control"
+                [(ngModel)]="val.loose_unit"
+                id="valloose_unit"
+                name="valloose_unit"
+                required
+                placeholder="Loose Unit"
+              />
+            </div>
+          </td>
+          <td>{{ val.p_rate_per_p }}</td>
+          <td>{{ val.p_rate_per_c }}</td>
+          <td>
+            <div *ngIf="!val.isEdit">
+              {{ val.discount }}
+            </div>
+            <div *ngIf="val.isEdit">
+              <input
+                type="number"
+                class="form-control"
+                [(ngModel)]="val.discount"
+                id="valdicount"
+                name="valdicount"
+                required
+                placeholder="Discount"
+              />
+            </div>
+          </td>
+          <td>
+            <div *ngIf="!val.isEdit">
+              {{ val.discount_amount }}
+            </div>
+            <div *ngIf="val.isEdit">
+              <input
+                type="number"
+                class="form-control"
+                [(ngModel)]="val.discount_amount"
+                id="discount_amount"
+                name="discount_amount"
+                required
+                placeholder="Dis Amt"
+              />
+            </div>
+          </td>
+          <td>
+            {{ val.total_rate }}
+          </td>
+          <td class="action_btn">
+            <div *ngIf="!val.isEdit">
+              <button
+                class="btn btn-sm btn-success"
+                style="margin-right: 10px"
+                (click)="edit(i)"
+              >
+                Edit
+              </button>
+              <button
+                class="btn btn-sm btn-danger"
+                style="margin-right: 10px"
+                (click)="delete(i)"
+              >
+                Delete
+              </button>
+            </div>
+            <div *ngIf="val.isEdit">
+              <button
+                class="btn btn-sm btn-success"
+                style="margin-right: 10px"
+                (click)="change(i)"
+              >
+                Save
+              </button>
+            </div>
+          </td>
+        </tr>
+        <tr row>
+          <td>
+            <input
+              #input
+              type="text"
+              class="form-control"
+              data-toggle="dropdown"
+              [(ngModel)]="purchase_item.product_name"
+              id="product_name"
+              name="product_name"
+              data-toggle="modal"
+              data-target="#purchase_item"
+              required
+              placeholder="Product Name"
+            />
+          </td>
+          <td>
+            {{ purchase_item.uom }}
+          </td>
+          <td>
+            <input
+              type="number"
+              class="form-control dropdown dropdown-toggle"
+              data-toggle="dropdown"
+              (ngModelChange)="priceCalc($event, null)"
+              [(ngModel)]="purchase_item.packing_qty"
+              id="packing_qty"
+              name="packing_qty"
+              required
+              placeholder="Qunatity"
+            />
+          </td>
+          <td>
+            <input
+              type="number"
+              class="form-control dropdown dropdown-toggle"
+              data-toggle="dropdown"
+              [(ngModel)]="purchase_item.loose_unit"
+              id="loose_unit"
+              name="loose_unit"
+              required
+              placeholder="Loose Unit"
+            />
+          </td>
+          <td>
+            {{ purchase_item.rate_per_pc }}
+          </td>
+          <td>
+            {{ purchase_item.rate_per_pk }}
+          </td>
+          <td>
+            <input
+              type="number"
+              class="form-control dropdown dropdown-toggle"
+              data-toggle="dropdown"
+              [(ngModel)]="purchase_item.disocunt_rate"
+              id="disocunt_rate"
+              name="disocunt_rate"
+              required
+              placeholder="Discount"
+            />
+          </td>
+          <td>
+            <input
+              type="number"
+              class="form-control dropdown dropdown-toggle"
+              data-toggle="dropdown"
+              [(ngModel)]="purchase_item.discount_amt"
+              id="discount_amt"
+              name="discount_amt"
+              required
+              placeholder="Discount Amt"
+            />
+          </td>
+          <td>
+            {{ purchase_item.total_rate }}
+          </td>
+          <td class="action_btn">
+            <button
+              class="btn btn-sm btn-primary"
+              style="margin-right: 10px"
+              (click)="add()"
+            >
+              Add
+            </button>
+          </td>
+        </tr>
+      </action-table>
+    </div>
+  </div>
+
+  <modal [datamodal]="datamodal">
+    <div header>
+      <span>Select Product</span>
+      <input
+        type="text"
+        class="form-control"
+        (ngModelChange)="filterItem($event)"
+        [(ngModel)]="searchItemText"
+        [ngModelOptions]="{ standalone: true }"
+        placeholder="Search Product"
+      />
+    </div>
+    <div body>
+      <action-table [col]="itemTable">
+        <tr *ngFor="let item of products; let i = index" row #selectList>
+          <!-- <tr *ngFor="let item of products | slice: 0:10; let i = index" row #selectList></tr> -->
+          <td>{{ item.PRODUCT_NAME }}</td>
+          <td>stock</td>
+          <td>
+            <button
+              class="btn btn-sm btn-success"
+              (click)="selected(item)"
+              type="button"
+              data-dismiss="modal"
+            >
+              Select
+            </button>
+          </td>
+        </tr>
+      </action-table>
+    </div>
+  </modal>
+</div>

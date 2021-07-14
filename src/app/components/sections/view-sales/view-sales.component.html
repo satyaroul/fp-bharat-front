@@ -1,0 +1,79 @@
+<div class="viewsales">
+  <div class="row" style="margin-top: 20px">
+    <div class="col">
+      <card>
+        <h5>Filters</h5>
+        <form>
+          <div class="row">
+            <div class="col-3">
+              <input
+                type="text"
+                class="form-control-sm"
+                id="bill_id"
+                placeholder="Bill ID"
+              />
+            </div>
+            <div class="col-3">
+              <input
+                type="text"
+                class="form-control-sm"
+                id="ac_name"
+                placeholder="Account Name"
+              />
+            </div>
+            <div class="col-3">
+              <input
+                type="text"
+                class="form-control-sm"
+                id="date"
+                placeholder="Date"
+              />
+            </div>
+            <div class="col-3">
+              <button class="form-control-sm btn btn-sm btn-primary">
+                Search
+              </button>
+            </div>
+          </div>
+        </form>
+      </card>
+    </div>
+  </div>
+
+  <div class="row" style="margin-top: 20px">
+    <div class="col">
+      <card>
+        <action-table [col]="viewsale_col_name">
+          <tr *ngFor="let val of bill_data; let i = index" row>
+            <td>{{ val.BILL_ID }}</td>
+            <td>{{ val.DATE }}</td>
+            <td>{{ val.AC_NAME }}</td>
+            <td>{{ val.AC_ADDRESS }}</td>
+            <td>{{ val.AC_MOBILE }}</td>
+            <td>{{ val.SALESMAN }}</td>
+            <td>{{ val.TOTAL_AMT }}</td>
+            <td class="action_btn" style="text-align: center">
+              <button
+                class="btn btn-sm btn-info"
+                style="margin-right: 10px"
+                (click)="edit(i)"
+              >
+                Edit
+              </button>
+              <button
+                class="btn btn-sm btn-success"
+                style="margin-right: 10px"
+                (click)="view(i)"
+              >
+                View
+              </button>
+              <button class="btn btn-sm btn-danger" (click)="delete(i)">
+                Delete
+              </button>
+            </td>
+          </tr>
+        </action-table>
+      </card>
+    </div>
+  </div>
+</div>

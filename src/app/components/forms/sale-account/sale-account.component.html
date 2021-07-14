@@ -1,0 +1,62 @@
+<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+  <div ngModelGroup="DATA">
+    <div class="form-group dropdown">
+      <label for="inputName4">Account Name</label>
+      <input
+        type="text"
+        class="form-control dropdown dropdown-toggle"
+        data-toggle="dropdown"
+        (ngModelChange)="filterAccount($event)"
+        [(ngModel)]="accountData.account_name"
+        id="inputName"
+        name="account_name"
+        required
+        placeholder="Search Account"
+      />
+      <div class="dropdown-menu" aria-labelledby="inputName" #selectList>
+        <button
+          class="dropdown-item"
+          *ngFor="let item of accounts | slice:0:10; let i = index"
+          (keyup.enter)="selected(item)"
+          (click)="selected(item)"
+          type="button"
+        >
+          {{ item.ACCOUNT_NAME }}
+        </button>
+      </div>
+    </div>
+    <div class="form-group dropdown">
+      <label for="salesman">Salesman</label>
+      <input
+        type="text"
+        class="form-control dropdown dropdown-toggle"
+        data-toggle="dropdown"
+        (ngModelChange)="filterSalesman($event)"
+        [(ngModel)]="accountData.salesman_name"
+        id="SalesmanName"
+        name="salesman_name"
+        required
+        placeholder="Select Salesman"
+      />
+      <div class="dropdown-menu" aria-labelledby="inputName" #selectSalesman>
+        <button
+          class="dropdown-item"
+          *ngFor="let item of salesman | slice:0:10; let i = index"
+          (keyup.enter)="selectedSalesman(item)"
+          (click)="selectedSalesman(item)"
+          type="button"
+        >
+          {{ item.NAME }}
+        </button>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputAddress">Address : {{ accountData.ac_address }}</label> <br>
+      <label for="inputGstn">GSTN : {{ accountData.ac_gstn }}</label> <br />
+
+      <label for="inputBeat">BEAT : {{ accountData.ac_beat }}</label> <br />
+
+      <label for="inputMobile">Mobile : {{ accountData.ac_mobile }}</label>
+    </div>
+  </div>
+</form>

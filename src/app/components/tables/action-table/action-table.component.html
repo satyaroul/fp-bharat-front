@@ -1,0 +1,10 @@
+<table class="table table-sm table-bordered table-striped">
+    <thead>
+      <tr>
+        <th scope="col" *ngFor="let name of col">{{name}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-content select="[row]"></ng-content>
+    </tbody>
+  </table>

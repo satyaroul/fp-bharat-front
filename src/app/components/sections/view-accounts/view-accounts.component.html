@@ -1,0 +1,26 @@
+<card>
+  <action-table [col]="view_account_cols">
+    <tr *ngFor="let val of accounts; let i = index" row>
+      <td>{{ val.account_name }}</td>
+      <td>{{ val.mobile_no }}</td>
+      <td>{{ val.account_group }}</td>
+      <td>{{ val.account_type }}</td>
+      <td>{{ val.pan }}</td>
+      <td>{{ val.address }}</td>
+      <td>{{ val.gstn }}</td>
+      <td>{{ val.beat_area }}</td>
+      <td class="action_btn" style="text-align: center">
+        <button
+          class="btn btn-sm btn-info"
+          style="margin-right: 10px"
+          (click)="edit(i)"
+        >
+          Edit
+        </button>
+        <button class="btn btn-sm btn-danger" (click)="delete(i)">
+          Delete
+        </button>
+      </td>
+    </tr>
+  </action-table>
+</card>

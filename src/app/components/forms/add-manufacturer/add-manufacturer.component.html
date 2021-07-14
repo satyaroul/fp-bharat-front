@@ -1,0 +1,44 @@
+<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+    <div ngModelGroup="DATA">
+      <div class="form-group">
+        <label for="inputAreaName">Manufacturer Name</label>
+        <input
+          type="text"
+          class="form-control"
+          ngModel
+          id="inputAreaName"
+          name="mfg_name"
+          required
+        />
+      </div>
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputMfgCode">Manufacturer Code</label>
+          <input
+            type="text"
+            class="form-control"
+            ngModel
+            id="inputMfgCode"
+            name="mfg_code"
+            required
+          />
+        </div>
+        <div class="form-group col-md-6">
+          <label for="inputMfgGstn">GSTN</label>
+          <input
+            type="text"
+            class="form-control"
+            ngModel
+            id="inputMfgGstn"
+            name="mfg_gstn"
+            required
+          />
+        </div>
+      </div>
+  
+      <button class="btn btn-primary" type="submit" [disabled]="!f.valid">
+        Submit
+      </button>
+    </div>
+  </form>
+  

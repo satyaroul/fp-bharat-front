@@ -1,0 +1,8 @@
+.itemhead {
+    font-size: 12px;
+}
+
+.itemhead .action_btn .btn-sm{
+    padding: 0.050rem .5rem !important; 
+    font-size: 12px !important;
+ }

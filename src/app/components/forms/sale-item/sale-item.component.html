@@ -1,0 +1,193 @@
+<form (ngSubmit)="onSubmit(f)" #f="ngForm" class="sale-item">
+  <div ngModelGroup="DATA">
+    <div class="form-group">
+      <label for="inputProductName2">Product Name</label>
+      <input
+        #el
+        (focus)="openModal($event)"
+        type="string"
+        class="form-control"
+        [ngModel]="item_name"
+        placeholder="Product"
+        id="inputProductName2"
+        name="item_name"
+        data-toggle="modal"
+        data-target="#selectItem"
+        required
+      />
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label for="inputUom">UOM</label>
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="uom"
+          placeholder="Unit of measure"
+          id="uom"
+          name="uom"
+          readonly
+        />
+      </div>
+      <div class="form-group col-md-3">
+        <label for="inputPkgType">Pack</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="pack"
+          placeholder="Total Case"
+          id="inputPkgQty"
+          name="item_okg_qty"
+          (ngModelChange)="packCalc()"
+          required
+        />
+      </div>
+      <div class="form-group col-md-3">
+        <label for="qty">Quantity</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="qty"
+          placeholder="Total loose"
+          (ngModelChange)="packCalc()"
+          id="qty"
+          name="qty"
+          required
+        />
+      </div>
+      <div class="form-group col-md-3">
+        <label for="Free">Free</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="free"
+          placeholder="Total loose"
+          (ngModelChange)="packCalc()"
+          id="free"
+          name="free"
+          required
+        />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-2 col-md-offset-1">
+        <label for="dis_rate">Discount %</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="discount_rate"
+          placeholder="Discount Rate"
+          id="discount_rate"
+          name="discount_rate"
+          (input)="calPrice()"
+        />
+      </div>
+      <div class="form-group col-md-2">
+        <label for="dis_amt">Discount</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="discount"
+          placeholder="Discount amount"
+          id="discount"
+          name="discount"
+          (input)="calPrice()"
+        />
+      </div>
+      <div class="form-group col-md-2">
+        <label for="price">Sale Rate</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="s_rate_per_p"
+          placeholder="Sale Rate Per Piece"
+          id="s_rate_per_p1"
+          name="s_rate_per_p"
+          readonly
+        />
+      </div>
+      <div class="form-group col-md-2">
+        <label for="price">M.R.P</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="mrp"
+          placeholder="M.R.P"
+          id="mrp"
+          name="mrp"
+          readonly
+        />
+      </div>
+      <div class="form-group col-md-2">
+        <label for="price">GST %</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="gst"
+          placeholder="GST"
+          id="GST"
+          name="GST"
+          readonly
+        />
+      </div>
+      <div class="form-group col-md-2">
+        <label for="total">Total Amount</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)]="net_amount"
+          placeholder="Total Amount"
+          id="totalamt"
+          name="totalamt"
+          readonly
+        />
+      </div>
+    </div>
+    <modal [datamodal]="modalItem">
+      <div header>
+        <span>Select Product</span>
+        <input
+          type="text"
+          class="form-control"
+          (ngModelChange)="filterItem($event)"
+          [(ngModel)]="searchItemText"
+          [ngModelOptions]="{ standalone: true }"
+          placeholder="Search Product"
+        />
+      </div>
+      <div body>
+        <action-table [col]="itemTable">
+          <tr *ngFor="let item of products; let i = index" row #selectList>
+            <!-- <tr *ngFor="let item of products | slice: 0:10; let i = index" row #selectList></tr> -->
+            <td>{{ item.PRODUCT_NAME }}</td>
+            <td>stock</td>
+            <td>
+              <button
+                class="btn btn-sm btn-success"
+                (click)="selected(item)"
+                type="button"
+                data-dismiss="modal"
+              >
+                Select
+              </button>
+            </td>
+          </tr>
+        </action-table>
+      </div>
+    </modal>
+    <button
+      class="action-btn btn btn-sm btn-primary float-right"
+      type="submit"
+      [disabled]="!f.valid"
+    >
+      Add
+    </button>
+    <button
+      class="action-btn btn btn-sm btn-secondary"
+      type="reset"
+      (click)="reset(f)"
+    >
+      Reset
+    </button>
+  </div>
+</form>

@@ -1,0 +1,28 @@
+<!-- Backup html -->
+
+<!-- select dropdown -->
+
+<label for="inputProductName">Product Name</label>
+<input
+  type="text"
+  class="form-control dropdown-toggle"
+  data-toggle="dropdown"
+  (ngModelChange)="filterItem($event)"
+  [(ngModel)]="item_name"
+  id="itemName"
+  [ngModelOptions]="{ standalone: true }"
+  required
+  placeholder="Search Product"
+/>
+<p>{{products}}</p>
+<div class="dropdown-menu" aria-labelledby="inputName" #selectList>
+  <button
+    class="dropdown-item"
+    *ngFor="let item of products | slice: 0:10; let i = index"
+    (keyup.enter)="selected(item)"
+    (click)="selected(item)"
+    type="button"
+  >
+    {{ item.PRODUCT_NAME }}
+  </button>
+</div>

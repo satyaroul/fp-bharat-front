@@ -1,0 +1,224 @@
+<!-- <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" (onClosed)="onClosed(alert)">{{ alert.msg }}</alert> -->
+<form (ngSubmit)="onSubmit(product)" #product="ngForm">
+  <div ngModelGroup="DATA">
+    <div class="row">
+      <div class="form-group col-8">
+        <label for="inputProductName">Product Name</label>
+        <input
+          type="text"
+          class="form-control"
+          ngModel
+          placeholder="Product Name"
+          id="inputProductName"
+          name="product_name"
+          required
+        />
+      </div>
+      <div class="form-group col-4">
+        <label for="hsn_code">HSN Code</label>
+        <input
+          type="text"
+          class="form-control"
+          ngModel
+          placeholder="HSN Code"
+          id="hsn_code"
+          name="hsn_code"
+          required
+        />
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-3">
+        <label for="inputGroupCode">Mfg/Group Code</label>
+        <select
+          id="inputGroupCode"
+          class="form-control"
+          ngModel
+          name="mfg_group_code"
+        >
+          <option>Mfg 1</option>
+          <option>Mfg 2</option>
+          <option>Mfg 3</option>
+          <option>Mfg 4</option>
+          <option>Mfg 5</option>
+        </select>
+      </div>
+      <div class="form-group col-md-3">
+        <label for="inputUom">Unit Of Measure</label>
+        <select id="inputUom" class="form-control" ngModel name="uom">
+          <option>Pkt</option>
+          <option>Jar</option>
+          <option>Box</option>
+        </select>
+      </div>
+      <div class="form-group col-md-3">
+        <label for="inputPkgType">Packaging Type</label>
+        <select
+          id="inputPkgType"
+          class="form-control"
+          ngModel
+          name="packing_type"
+        >
+          <option>Box</option>
+          <option>Case</option>
+          <option>Bag</option>
+        </select>
+      </div>
+      <div class="form-group col-md-3">
+        <label for="inputPkgQty">Packaging Quantity</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)] = "unit_per_package"
+          placeholder="UOM/Packaging Type"
+          id="inputPkgQty2"
+          name="unit_per_package"
+          required
+        />
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="form-group col-3">
+        <label for="gst">GST</label>
+        <input
+          type="number"
+          class="form-control"
+          ngModel
+          (ngModelChange)="calculateGST($event)"
+          placeholder="GST %"
+          id="gst"
+          name="gst"
+          required
+        />
+      </div>
+      <div class="form-group col-3">
+        <label for="cgst">CGST</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)] = "cgst"
+          placeholder="CGST"
+          id="cgst"
+          name="cgst"
+          readonly
+        />
+      </div>
+      <div class="form-group col-3">
+        <label for="sgst">SGST</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)] = "sgst"
+          placeholder="SGST"
+          id="sgst"
+          name="sgst"
+          readonly
+        />
+      </div>
+      <div class="form-group col-3">
+        <label for="sgst">M.R.P.</label>
+        <input
+          type="number"
+          class="form-control"
+          ngModel
+          placeholder="M.R.P."
+          id="mrp1"
+          name="mrp"
+          required
+        />
+      </div>
+    </div>
+
+    <h6>Purchase Rate</h6>
+    <hr>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="p_rate_per_p">Purchase Rate Per Piece</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)] = "p_rate_per_p"
+          placeholder="Purchase Rate Per Piece"
+          (ngModelChange)="PcalcPcPriceToCs($event)"
+          id="p_rate_per_p"
+          name="p_rate_per_p"
+          required
+        />
+      </div>
+      <div class="form-group col-md-6">
+        <label for="p_rate_per_c">Purchase Rate Per Pack</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)] = "p_rate_per_c"
+          placeholder="Purchase Rate Per Pack"
+          (ngModelChange)="PcalcCsPriceToPc($event)"
+          id="p_rate_per_c"
+          name="p_rate_per_c"
+          required
+        />
+      </div>
+    </div>
+    <h6>Sale Rate</h6>
+    <hr>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="s_rate_per_p">Sale Rate Per Piece</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)] = "s_rate_per_p"
+          placeholder="Sale Rate Per Piece"
+          (ngModelChange)="ScalcPcPriceToCs($event)"
+          id="s_rate_per_p"
+          name="s_rate_per_p"
+          required
+        />
+      </div>
+      <div class="form-group col-md-6">
+        <label for="s_rate_per_c">Sale Rate Per Pack</label>
+        <input
+          type="number"
+          class="form-control"
+          [(ngModel)] = "s_rate_per_c"
+          (ngModelChange)="ScalcCsPriceToPc($event)"
+          placeholder="Sale Rate Per Pack"
+          id="s_rate_per_c"
+          name="s_rate_per_c"
+          required
+        />
+      </div>
+    </div>
+    <h6>Discount</h6>
+    <hr>
+    <div class="form-row">
+      <div class="form-group col-md-6">
+        <label for="discount_rate">Discount %</label>
+        <input
+          type="number"
+          class="form-control"
+          ngModel
+          placeholder="Discount %"
+          id="discount1"
+          name="discount"
+        />
+      </div>
+      <div class="form-group col-md-6">
+        <label for="discount_amount">Discount Amount</label>
+        <input
+          type="number"
+          class="form-control"
+          ngModel
+          placeholder="Discount Amount"
+          id="discount_amount1"
+          name="discount_amount"
+        />
+      </div>
+    </div>
+
+    <button id="saveItemBtn" class="btn btn-primary btn-sm" type="submit" [disabled]="!product.valid">
+      Save
+    </button>
+  </div>
+</form>
